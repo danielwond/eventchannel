@@ -11,7 +11,9 @@
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp">
+        app:cardCornerRadius="5dp"
+        app:cardBackgroundColor="@android:color/black"
+        >
 
         <LinearLayout
             android:padding="10dp"
@@ -21,29 +23,34 @@
 
             <TextView
                 android:id="@+id/titleText"
+                android:textColor="@android:color/white"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Displaying over other apps!"
+                android:text="ALERT COMING FROM RIDE!"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:padding="10dp"/>
 
             <Button
+                android:id="@+id/yesbtn"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Accept" />
+            <Button
+                android:id="@+id/nobtn"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deny" />
+
+            <Button
                 android:id="@+id/window_close"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="100dp"
                 android:text="Remove" />
-            <Button
-                android:id="@+id/yesbtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Yes" />
-            <Button
-                android:id="@+id/nobtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No" />
 
         </LinearLayout>
 
