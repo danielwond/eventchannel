@@ -22,54 +22,56 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    onListenBattery();
+
     onStreamBattery();
   }
+
   @override
   void dispose() {
     _streamSubscription.cancel();
     super.dispose();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(32),
-        child: Column(
-          children: [
-            Text(
-              batteryLevel,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30, color: Colors.blue),
-            ),
-            Text(
-              chargingLevel,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30, color: Colors.blue),
-            ),
-          ],
+      body: SafeArea(
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(32),
+          child: Column(
+            children: [
+              Text(
+                chargingLevel,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 30, color: Colors.blue),
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    var result = await batteryChannel.invokeMethod('thistho');
+                    print(result);
+                  },
+                  child: Text('Show dialog')),
+              SizedBox(height: 50,),
+              ElevatedButton(
+                  onPressed: () async {
+                    _streamSubscription.cancel();
+                  },
+                  child: Text('Close Connection')),
+              ElevatedButton(
+                  onPressed: () async {
+                    onStreamBattery();
+                  },
+                  child: Text('Open Connection'))
+            ],
+          ),
         ),
       ),
     );
   }
 
-  void onListenBattery() {
-    batteryChannel.setMethodCallHandler((call) async {
-      if (call.method == 'reportBatteryLevel') {
-        final int batteryLevel = call.arguments;
-        print(call.arguments);
-        setState(() {
-          this.batteryLevel = '$batteryLevel';
-        });
-      }
-    });
-  }
-
   void onStreamBattery() {
-    _streamSubscription =  eventChannel.receiveBroadcastStream().listen((event) {
+    _streamSubscription = eventChannel.receiveBroadcastStream().listen((event) {
       setState(() {
         chargingLevel = event;
       });

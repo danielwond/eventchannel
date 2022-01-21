@@ -1,6 +1,7 @@
 package com.example.untitled3.window;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.util.Log;
@@ -22,6 +23,7 @@ public class Window {
     private WindowManager.LayoutParams mParams;
     private WindowManager mWindowManager;
     private LayoutInflater layoutInflater;
+    public String pressedValue = "";
 
     public Window(Context context){
         this.context=context;
@@ -50,7 +52,32 @@ public class Window {
         mView.findViewById(R.id.window_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, ForegroundService.class);
+                context.stopService(intent);
                 close();
+            }
+        });
+        mView.findViewById(R.id.yesbtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pressedValue = "yes";
+                
+                Intent intent = new Intent("FROM_SERVICE");
+                intent.putExtra("Variable", "yes");
+                context.sendBroadcast(intent);
+            }
+        });
+
+        mView.findViewById(R.id.nobtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pressedValue = "no";
+
+                Intent intent = new Intent("FROM_SERVICE");
+                intent.putExtra("Variable", "no");
+                context.sendBroadcast(intent);
+
+
             }
         });
         // Define the position of the
