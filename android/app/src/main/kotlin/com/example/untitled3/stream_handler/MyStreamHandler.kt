@@ -1,4 +1,4 @@
-package com.example.untitled3
+package com.example.untitled3.stream_handler
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -13,6 +13,7 @@ class MyStreamHandler(context: Context) : EventChannel.StreamHandler {
 
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
         if(events == null) return
+
         reciever = initReciever(events)
         cxt.registerReceiver(reciever, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     }

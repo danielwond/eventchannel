@@ -1,9 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.untitled3">
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
    <application
         android:label="untitled3"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+       <service
+           android:name=".window.ForegroundService"
+           android:enabled="true"
+           android:exported="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
